@@ -1,0 +1,16 @@
+table{
+  height: 500px;
+  width: 480px;
+  /*border-collapse: collapse;*/
+}
+table, td {
+  border: 2px #ff0000 solid;
+  vertical-align: top;
+  padding: 10px;
+}
+td{
+  display: inline-block;
+  height: 70px;
+  width: 40px;
+  margin: 0;
+}
