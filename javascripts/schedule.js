@@ -32,7 +32,9 @@ var addTd = function (){
 
   for(var i = 0; i < weeks.length; i++) {
     var week = weeks[i];
-    console.log(week);
+    for(var l = 0; l < 5; l++ ){
+      console.log(l);
+    }
   }
 
   // day.appendChild(element2);
