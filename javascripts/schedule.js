@@ -1,46 +1,56 @@
+// デフォルトの行数
+var DEFAULT_ROW = 6;
+// 一週間の日にちの数
+var ONE_WEEK_DAYS = 7;
+
 var year = document.getElementById('calender_year').value;
 var month = document.getElementById('calender_month').value;
-
-console.log(year)
-console.log(month);
 
 if (month === '1') {
 
 }
 
-var day = new Date(year,month,0).getDate();
-console.log(day)
+// 対象の月の日数
+var dayLength = new Date(year,month,0).getDate();
 
+// 開始曜日番号
 var firstday = new Date(year,month - 1,1).getDay();
-console.log(firstday)
 
 /********************************行追加*********************************/
-var addTr = function (){
-  var element = document.createElement('tr');
-  var line = document.getElementById('calender')
-  line.appendChild(element);
+var addTr = function (argCalender){
+  var line = document.createElement('tr');
+  argCalender.appendChild(line);
 };
 
-for(var i = 1 ; i <= 6 ; i = i + 1){
-  addTr();
+var calender = document.getElementById('calender');
+for(var i = 0 ; i < DEFAULT_ROW ; i++){
+  addTr(calender);
 }
 
 /********************************セル追加*********************************/
-var addTd = function (){
-  var element2 = document.createElement('td');
-  var weeks = document.getElementById('calender').children;
+var addTd = function (argWeek, colspan){
+  var dayElement = document.createElement('td');
+  argWeek.appendChild(dayElement);
+};
 
-  for(var i = 0; i < weeks.length; i++) {
-    var week = weeks[i];
-    for(var l = 0; l < 5; l++ ){
-      console.log(l);
+var count = 1;
+var weeks = document.getElementById('calender').children;
+for(var i = 0; i < weeks.length; i++) {
+  var week = weeks[i];
+  for(var l = 0; l < ONE_WEEK_DAYS; l++ ){
+    if(count === 'firstday') {
+    // 繋げない時
+      addTd(week)
+    }else{
+    // もしつなげるなら
+      addTd(week, "colSpan",'firstday')
     }
   }
-
-  // day.appendChild(element2);
 }
 
-addTd();
+  // day.appendChild(element2);
+
+
 
 
 // var line = day %
