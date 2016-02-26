@@ -1,16 +1,26 @@
 table{
-  height: 500px;
-  width: 480px;
-  /*border-collapse: collapse;*/
+  min-width: 800px;
+  border-collapse: collapse;
 }
-table, td {
-  border: 2px #ff0000 solid;
-  vertical-align: top;
-  padding: 10px;
+td {
+  border: 2px #00a3af solid;
+  height: 40px;
+  min-width: 40px;
+  padding-bottom: 0;
+  vertical-align: bottom;
 }
-td{
-  display: inline-block;
+textarea{
+  width: 96%;
   height: 70px;
-  width: 40px;
-  margin: 0;
+  margin: 0 0;
+  vertical-align: bottom;
+  font-size: 16px;
+  /*width: 100%;
+  height: 100%;*/
+}
+tr.week{
+  text-align: center;
+}
+.week td{
+  position: relative;
 }
