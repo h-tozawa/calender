@@ -8,6 +8,7 @@ var test = {};
 var change = function(num){
   var year = Number(document.getElementById('calender_year').value);
   var month = Number(document.getElementById('calender_month').value);
+
   // NaN Not a Number
   if (isNaN(year)) {
     alert('年に変な値入れんな');
@@ -99,8 +100,8 @@ document.getElementById('form').addEventListener('submit', function(event) {
 
 
 document.getElementById('prev').onclick = function(event, removeevent) {
-    var month = Number(document.getElementById('calender_month').value);
-  remenber(month);
+  saveData();
+
   var calender = document.getElementById('calender');
   var calenderBody = document.getElementById('calender_body');
   calender.removeChild(calenderBody);
@@ -109,14 +110,12 @@ document.getElementById('prev').onclick = function(event, removeevent) {
   calender.appendChild(calenderBody);
   document.forms[""]
   change(-1);
-
+  loadData();
 };
 
 
 document.getElementById('next').onclick = function(event) {
-    var month = Number(document.getElementById('calender_month').value);
-  remenber(month);
-
+  saveData();
 
   var calender = document.getElementById('calender');
   var calenderBody = document.getElementById('calender_body');
@@ -126,9 +125,45 @@ document.getElementById('next').onclick = function(event) {
   calender.appendChild(calenderBody);
 
   change(+1);
+  loadData();
 };
 
-function remenber(month){
+function saveData() {
+  var year = document.getElementById('calender_year').value;
+  var month = document.getElementById('calender_month').value;
+  var textareas = document.getElementsByClassName('memo');
+
+  var key = year + '' + month;
+
+  var memos = [textareas.length];
+
+  for (var i = 0; i < textareas.length; i++) {
+    memos[i] = textareas[i].value;
+  }
+
+  var storage = localStorage;
+  storage.setItem(key, memos);
+}
+
+function loadData() {
+  var year = document.getElementById('calender_year').value;
+  var month = document.getElementById('calender_month').value;
+  var textareas = document.getElementsByClassName('memo');
+
+  var key = year + '' + month;
+
+  var storage = localStorage;
+  var memos = storage.getItem(key);
+  memos = memos.split(',');
+
+  var minNum = memos.length > textareas.length ? textareas.length : memos.length;
+
+  for (var i = 0; i < minNum; i++) {
+    textareas[i].value = memos[i];
+  }
+}
+
+function remenber(){
   var texts = [];
   var tableBody = document.getElementById('calender_body');
   //⇩要素の取り方はいっぱいある
@@ -151,23 +186,34 @@ function remenber(month){
 
     var key = year + month;
 
-    var memo = memos[key];
-    var text = memo[i];
-    var storage = localstorage;
-    localstorage.setItem(key,text);
-    localstorage.getItem(key);
+
+    var memos = {};
+    memos[key] = [];
+
+    // *1-1
+    // memos[key][i] = textareas[i].value;
+    var storage = localStorage;
+    // storage.setItem(key, memos[key]);
+
+    // *1-2
+    memos[key][i] = storage.getItem(key);
+    textareas[i] = memos[key][i]
+    // var div = document.getElementsByTagName('div');
+    // div.innerHTML = div.innerHTML + memos[key][i];
 
   }
-  test[month] = texts;
-  console.log(test);
+
 
   // var textArea = document.forms["tareacopy"].elements[i];
   // var tareaCopy = document.tareacopy.elements[i];
   // tareaCopy.value = textArea.value;
 }
 
+var storage = localStorage;
+console.log(storage);
 
 
 
 // 初期化
 change();
+loadData();
